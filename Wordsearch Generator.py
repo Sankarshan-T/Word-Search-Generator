@@ -1,6 +1,7 @@
 import random
 import string
 
+
 def place_word(board, word):
     orientations = [0, 1, 2, 3]  # 0=horizontal, 1=vertical, 2=diag TL-BR, 3=diag BL-TR
     tries = 100
@@ -72,14 +73,24 @@ def display_board(board):
     for row in board:
         print(' '.join(row))
 
-# Example usage
-words = ["ADVENTURE", "DESTINATION", "PASSPORT", "EXPLORE", "TOURIST",
-         "JOURNEY", "FLIGHT", "CRUISE", "LUGGAGE", "TICKET"]
 
-board = create_word_search(words)
-display_board(board)
-print("\nWords to Find:")
-print(", ".join(words))
+while True:
+    words = input("Enter any 5 or less of your words separated by commas (don't use any spaces): ").split(',')
 
+    valid = True
+    for word in words:
+        if not (isinstance(word, str) and word.strip() and word.strip().isalpha()):
+            print("Please enter valid words (letters only, no numbers or special characters).")
+            valid = False
+            break
 
+    if not valid:
+        continue
+
+    board = create_word_search(words)
+    display_board(board)
+    print("\nWords to Find:")
+    print(", ".join(words))
+    if input("Do you want to start again? Click s to start again or (Press Enter to exit...)") != 's':
+        break
 
